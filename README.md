@@ -19,10 +19,18 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Create a PostgreSQL database named `asset_risk` (or update `DATABASE_URL`), then copy `.env.example` to `.env` and adjust the connection string and JWT secret:
+Create a PostgreSQL database named `asset_risk` (or update `DATABASE_URL`), then copy `.env.example` to `.env`. On Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Update `DATABASE_URL` and set a private `JWT_SECRET_KEY` in `.env`. To enable AI explanations, add your OpenAI key as `OPENAI_API_KEY=...` in this local file. Do not commit `.env`.
+
+Apply the database migrations before starting the API:
 
 ```bash
-cp .env.example .env
+alembic upgrade head
 ```
 
 Start the development server:
